@@ -1,15 +1,15 @@
-define HELP_MSG
+define USAGE
 
   fedora:  Builds an image with a bare Fedora system.
   rails:   Builds a basic rails runtime environment.
 
 endef
-export HELP_MSG
+export USAGE
 
 
 
 default:
-	@echo "$$HELP_MSG"
+	@echo "$$USAGE"
 
 fedora: fedora/Dockerfile fedora/fedora.tar.xz
 	docker build -t fredym/fedora -f fedora/Dockerfile fedora/
