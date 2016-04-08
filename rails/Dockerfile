@@ -17,9 +17,25 @@ RUN dnf -y install \
       rubygem-sdoc \
       rubygem-spring \
       rubygem-byebug \
-      rubygem-web-console
+      rubygem-web-console \
+      && \
+    dnf -y clean all
 
-CMD /bin/bash
+ENTRYPOINT ["rails"]
+
+
+ONBUILD ENV APP_PATH /usr/src/app
+ONBUILD RUN mkdir -p $APP_PATH
+ONBUILD WORKDIR $APP_PATH
+
+ONBUILD COPY Gemfile $APP_PATH
+ONBUILD COPY Gemfile.lock $APP_PATH
+ONBUILD RUN bundle install --local
+
+ONBUILD COPY . $APP_PATH
+
+ONBUILD EXPOSE 3000
+ONBUILD CMD ["server", "-b", "0.0.0.0"]
 
 
 # References
@@ -28,3 +44,4 @@ CMD /bin/bash
 # https://developer.fedoraproject.org/tech/languages/ruby/ror-installation.html
 # https://fedoraproject.org/wiki/Changes/Ruby_on_Rails_4.2
 # https://fedoraproject.org/wiki/Ruby_SIG
+# https://github.com/docker-library/rails/blob/9df9b5e6b1519faf22e1565c2caaebf7cc1c665b/onbuild/Dockerfile
