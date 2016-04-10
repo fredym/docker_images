@@ -1,3 +1,7 @@
+**DEPRECATED** Split into https://github.com/fredym/docker_*. I did this because
+the Docker Hub Automatic Build System pulls and builds all the images even if
+only one Dockerfile was changed, which is usually the case.
+
 Fredy's Docker Images
 =====================
 
